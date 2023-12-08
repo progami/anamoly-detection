@@ -1,0 +1,11 @@
+__pycache__
+# data
+*.csv
+*.xls
+*.sqlite3
+# output
+*.txt
+*.png
+# weights
+*.pth
+*.pt
