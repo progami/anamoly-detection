@@ -31,4 +31,17 @@ pip install -r requirements.txt
 - For collecting the weather dataset, we use code from the [the-weather-scraper](https://github.com/Karlheinzniebuhr/the-weather-scraper) project.
 
 ### Citation
-TBA
+If you find this repository useful for your research work, please consider citing it as follows:
+```
+@ARTICLE{10418166,
+  author={Dissem, Maher and Amayri, Manar and Bouguila, Nizar},
+  journal={IEEE Internet of Things Journal}, 
+  title={Neural Architecture Search for Anomaly Detection in Time-Series Data of Smart Buildings: A Reinforcement Learning Approach for Optimal Autoencoder Design}, 
+  year={2024},
+  volume={11},
+  number={10},
+  pages={18059-18073},
+  keywords={Time series analysis;Internet of Things;Anomaly detection;Intelligent sensors;Data models;Smart buildings;Optimization;Anomaly detection;autoencoder (AE);neural architecture search (NAS);reinforcement learning (RL);smart buildings;time series},
+  doi={10.1109/JIOT.2024.3360882}
+}
+```
