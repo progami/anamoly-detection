@@ -17,7 +17,8 @@ from utils.utils import fix_seed
 load_path = 'dataset/weather_data/'  # path to the dataset root folder
 save_path = 'dataset/gen_anomalies/' # path to save the generated anomalies
 
-dataset_names = ["IHAMPS1", "IMONTR17", "IMONTR172", "IQUEBECM21", "IWESTM40"]
+# CHANGED: Only process the file you have
+dataset_names = ["IHAMPS1"]  # Changed from the full list
 feat_to_keep = ["Temperature_C", "Humidity_%", "Pressure_hPa"]
 
 contamination_rate = 0.2 
@@ -25,7 +26,10 @@ train_test_split_ratio = 0.6
 
 seed = 19
 fix_seed(seed)
+
+# Create all necessary directories
 os.makedirs(save_path, exist_ok=True)
+os.makedirs('dataset/synth_ts_data', exist_ok=True)  # Added this line
 
 
 def load_data(path, filename):
@@ -40,7 +44,7 @@ def triOut_remove(reg_data, model='GMM', rate=10):
     X_trn = reg_data.iloc[:, :]
     if model == 'GMM':
         fit_model = GaussianMixture(n_components=3, n_init=10, reg_covar=1e-3, random_state=seed)
-    scaler = StandardScaler(random_state=seed)
+    scaler = StandardScaler()  # Removed random_state parameter
     X_trn = scaler.fit_transform(X_trn)
     fit_model.fit(X_trn)
     densities = fit_model.score_samples(X_trn)
@@ -229,10 +233,38 @@ def contam_save_data(dataset, dataset_name, feature_name):
 
 if __name__ == "__main__":
     
+    print("Starting data preparation...")
+    
+    # Check if files exist before processing
     for dataset_name in dataset_names:
         data_path = os.path.join(load_path, f'{dataset_name}.csv')
+        
+        if not os.path.exists(data_path):
+            print(f"Warning: {data_path} not found, skipping...")
+            continue
+            
+        print(f"\nProcessing {dataset_name}...")
         dataset = pd.read_csv(data_path)
-        generate_anomalies(load_path, save_path, dataset_name, feat_to_keep)
+        
+        # Check which features are available
+        available_features = [f for f in feat_to_keep if f in dataset.columns]
+        missing_features = [f for f in feat_to_keep if f not in dataset.columns]
+        
+        if missing_features:
+            print(f"Warning: Missing features {missing_features} in {dataset_name}")
+        
+        if not available_features:
+            print(f"Error: No required features found in {dataset_name}")
+            continue
+            
+        print(f"Generating anomalies for features: {available_features}")
+        generate_anomalies(load_path, save_path, dataset_name, available_features)
 
-        for feature_name in feat_to_keep:
+        for feature_name in available_features:
+            print(f"Creating contaminated datasets for {feature_name}...")
             contam_save_data(dataset, dataset_name, feature_name)
+    
+    print("\nData preparation completed!")
+    print(f"Generated files in:")
+    print(f"  - {save_path} (anomaly files)")
+    print(f"  - dataset/synth_ts_data/ (train/test files)")

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Create .gitkeep files to preserve directory structure
+# Run this script: bash create_gitkeep.sh
+
+# Create .gitkeep files in empty directories
+touch dataset/weather_data/.gitkeep
+touch dataset/gen_anomalies/.gitkeep
+touch dataset/synth_ts_data/.gitkeep
+touch results/.gitkeep
+touch checkpoints/.gitkeep
+
+echo "Created .gitkeep files in:"
+echo "  - dataset/weather_data/"
+echo "  - dataset/gen_anomalies/"
+echo "  - dataset/synth_ts_data/"
+echo "  - results/"
+echo "  - checkpoints/"
+
+# Optional: Add and commit these files
+# git add -f dataset/weather_data/.gitkeep
+# git add -f dataset/gen_anomalies/.gitkeep
+# git add -f dataset/synth_ts_data/.gitkeep
+# git add -f results/.gitkeep
+# git add -f checkpoints/.gitkeep
+# git commit -m "Add .gitkeep files to preserve directory structure"

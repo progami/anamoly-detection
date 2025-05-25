@@ -1,11 +1,101 @@
-__pycache__
-# data
-*.csv
-*.xls
-*.sqlite3
-# output
-*.txt
-*.png
-# weights
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Dataset files (often large, regeneratable)
+dataset/weather_data/*.csv
+dataset/gen_anomalies/*.csv
+dataset/synth_ts_data/*.csv
+# Keep directory structure
+!dataset/weather_data/.gitkeep
+!dataset/gen_anomalies/.gitkeep
+!dataset/synth_ts_data/.gitkeep
+
+# Model checkpoints and weights
 *.pth
 *.pt
+*.ckpt
+*.h5
+*.pkl
+checkpoints/
+models/weights/
+
+# Results and outputs
+results/*.txt
+results/*.json
+results/*.png
+results/*.jpg
+results/*.pdf
+# Keep results directory
+!results/.gitkeep
+
+# Logs
+logs/
+*.log
+runs/
+tensorboard/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Large files
+*.zip
+*.tar
+*.gz
+
+# MLflow artifacts (if using MLflow)
+mlruns/
+mlflow.db
+
+# Specific to your project
+IFILADEL7.csv  # Original weather data file
+nas_checkpoint.pth
+training_history.csv
+best_autoencoder_final.pth
+
+# Keep important files
+!requirements.txt
+!README.md
+!LICENSE
+!config/*.py
+!models/*.py
+!utils/*.py
+!notebooks/*.ipynb
+!main.py
+!prepare_data.py
+!run_experiments.py
+!random_search.py
